@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MonthlyDiaryActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mcv_showOtherDates="none"
+            app:mcv_selectionColor="@color/colorHighlight"
+            />
+
+        <LinearLayout
+            android:id="@+id/diary_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="329dp">
+
+            <TextView
+                android:id="@+id/date_viewer"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:minHeight="@dimen/single_item_height"
+                android:minWidth="@dimen/single_item_height"
+                android:text=""
+                android:textSize="@dimen/text_size"
+                tools:layout_editor_absoluteX="89dp"
+                tools:layout_editor_absoluteY="338dp" />
+
+            <TextView
+                android:id="@+id/body_viewer"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:hint=""
+                android:minHeight="@dimen/single_item_height"
+                android:minWidth="@dimen/single_item_height"
+                android:textSize="@dimen/text_size"
+                tools:layout_editor_absoluteX="89dp"
+                tools:layout_editor_absoluteY="385dp" />
+
+            <TextView
+                android:id="@+id/hashtag_viewer"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:minHeight="@dimen/single_item_height"
+                android:minWidth="@dimen/single_item_height"
+                android:text=""
+                android:textSize="@dimen/text_size"
+                tools:layout_editor_absoluteX="89dp"
+                tools:layout_editor_absoluteY="430dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>

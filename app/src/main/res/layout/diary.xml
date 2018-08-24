@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="326dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintGuide_begin="326dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="183dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline">
+
+        <TextView
+            android:id="@+id/date_viewer"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:minHeight="@dimen/single_item_height"
+            android:minWidth="@dimen/single_item_height"
+            android:text=""
+            android:textSize="@dimen/text_size"
+            tools:layout_editor_absoluteX="89dp"
+            tools:layout_editor_absoluteY="338dp" />
+
+        <TextView
+            android:id="@+id/body_viewer"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:hint=""
+            android:minHeight="@dimen/single_item_height"
+            android:minWidth="@dimen/single_item_height"
+            android:textSize="@dimen/text_size"
+            tools:layout_editor_absoluteX="89dp"
+            tools:layout_editor_absoluteY="385dp" />
+
+        <TextView
+            android:id="@+id/hashtag_viewer"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:minHeight="@dimen/single_item_height"
+            android:minWidth="@dimen/single_item_height"
+            android:text=""
+            android:textSize="@dimen/text_size"
+            tools:layout_editor_absoluteX="89dp"
+            tools:layout_editor_absoluteY="430dp" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
