@@ -16,9 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DailyDiaryActivity">
-
-        </activity>
+        <activity android:name=".DailyDiaryActivity" />
+        <activity android:name=".DreamInterpretActivity" />
+        <activity android:name=".TagCloudActivity"></activity>
     </application>
 
 </manifest>

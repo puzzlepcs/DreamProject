@@ -2,12 +2,15 @@ package com.multi.hokim.dreamproject.diaryList;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class DiaryVO {
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+
     private CalendarDay date;
     private String body;
-    private ArrayList<String> hashtags;
+    private List<String> hashtags;
     private int id_;
 
     public DiaryVO() { }
@@ -16,7 +19,17 @@ public class DiaryVO {
         this.id_ = id;
     }
 
-    public DiaryVO(int id, CalendarDay date, String body, ArrayList<String> hashtags) {
+    public DiaryVO(CalendarDay date) {
+        this.date = date;
+    }
+
+    public DiaryVO(int id, CalendarDay date, String body) {
+        this.id_ = id;
+        this.date = date;
+        this.body = body;
+    }
+
+    public DiaryVO(int id, CalendarDay date, String body, List<String> hashtags) {
         this.id_ = id;
         this.date = date;
         this.body = body;
@@ -27,12 +40,16 @@ public class DiaryVO {
     public CalendarDay getDate() {
         return date;
     }
+    public String getDateString() {
+        return DATE_FORMAT.format(date);
+    }
     public String getBody() {
         return body;
     }
-    public ArrayList<String> getHashtag() {
+    public List<String> getHashtag() {
         return hashtags;
     }
+
     public void setId(int id) {
         this.id_ = id;
     }
@@ -48,10 +65,9 @@ public class DiaryVO {
     public void setBody(String body) {
         this.body = body;
     }
-    public void setHashtag(ArrayList<String> hashtags) {
+    public void setHashtag(List<String> hashtags) {
         this.hashtags = hashtags;
     }
-
     public boolean equals(DiaryVO d) {
         return (d.getDate().equals(this.date));
     }

@@ -4,4 +4,5 @@
     <string name="set_text">Set text</string>
     <string name="text_will_be_pasted_here">text will be pasted here</string>
     <string name="get_all_hashtags">get all hashtags</string>
+    <string name="save_diary">save diary</string>
 </resources>

@@ -5,19 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MonthlyDiaryActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:mcv_showOtherDates="none"
             app:mcv_selectionColor="@color/colorHighlight"
-            />
+            app:mcv_showOtherDates="none" />
 
         <LinearLayout
             android:id="@+id/diary_preview"
@@ -30,7 +29,7 @@
             tools:layout_editor_absoluteY="329dp">
 
             <TextView
-                android:id="@+id/date_viewer"
+                android:id="@+id/monthly_date_viewer"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
                 android:layout_margin="@dimen/activity_vertical_margin"
@@ -42,7 +41,7 @@
                 tools:layout_editor_absoluteY="338dp" />
 
             <TextView
-                android:id="@+id/body_viewer"
+                android:id="@+id/monthly_body_viewer"
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
                 android:layout_margin="@dimen/activity_vertical_margin"
@@ -54,7 +53,7 @@
                 tools:layout_editor_absoluteY="385dp" />
 
             <TextView
-                android:id="@+id/hashtag_viewer"
+                android:id="@+id/monthly_hashtag_viewer"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
                 android:layout_margin="@dimen/activity_vertical_margin"
@@ -64,6 +63,12 @@
                 android:textSize="@dimen/text_size"
                 tools:layout_editor_absoluteX="89dp"
                 tools:layout_editor_absoluteY="430dp" />
+
+            <Button
+                android:id="@+id/write_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Write Diary" />
         </LinearLayout>
     </LinearLayout>
 
