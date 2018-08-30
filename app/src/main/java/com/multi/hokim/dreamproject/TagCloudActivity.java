@@ -80,12 +80,12 @@ public class TagCloudActivity extends AppCompatActivity {
         layout.addView(listView);
 
         ViewGroup.LayoutParams params = mTagCloudView.getLayoutParams();
-        params.height = 280;
+        params.height = height/2;
         mTagCloudView.setLayoutParams(params);
 
         setContentView(layout);
         //layout.setBackgroundColor(Color.rgb(101,47,	116));
-        layout.setBackgroundResource(R.drawable.background02);
+        layout.setBackgroundResource(R.drawable.background03);
 
         //Step4: (Optional) adding a new tag and resetting the whole 3D TagCloud
         //you can also add individual tags later:

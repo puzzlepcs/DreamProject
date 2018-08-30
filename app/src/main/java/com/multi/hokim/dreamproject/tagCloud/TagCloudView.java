@@ -82,10 +82,10 @@ public class TagCloudView extends RelativeLayout{
                 textSizeMin,
                 textSizeMax
         );
-        float[] tempColor1 = {0.8431f, 0.8196f, 1.f, 1}; //rgb Alpha //TODO 택스트 컬러 선택
+        float[] tempColor1 = {1.f, 0.8196f, 0.8745f, 1}; //rgb Alpha //TODO 택스트 컬러 선택
         //{1f,0f,0f,1}  red       {0.3882f,0.21568f,0.0f,1} orange
         //{0.9412f,0.7686f,0.2f,1} light orange
-        float[] tempColor2 = {1.f, 0.8196f, 0.8745f, 1}; //rgb Alpha
+        float[] tempColor2 = {0.8196f, 0.8313f, 1.f, 1}; //rgb Alpha
         //{0f,0f,1f,1}  blue      {0.1294f,0.1294f,0.1294f,1} grey
         //{0.9412f,0.7686f,0.2f,1} light orange
         mTagCloud.setTagColor1(tempColor1);//higher color

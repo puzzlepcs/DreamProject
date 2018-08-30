@@ -91,7 +91,7 @@ public class MonthlyDiaryActivity extends AppCompatActivity implements OnDateSel
         });
 
         char[] additionalSymbols = new char[] {'_','$'};
-        mTextHashTagHelper = HashTagHelper.Creator.create(getResources().getColor(R.color.colorAccent), this, additionalSymbols);
+        mTextHashTagHelper = HashTagHelper.Creator.create(getResources().getColor(R.color.colorHahshtag), this, additionalSymbols);
         mTextHashTagHelper.handle(body_viewer);
 
     }

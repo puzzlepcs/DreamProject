@@ -2,6 +2,7 @@ package com.multi.hokim.dreamproject.diaryList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,11 +57,13 @@ public class MyAdapter extends BaseAdapter {
         TextView tv1 = (TextView)convertView.findViewById(R.id.tv1);
         TextView tv2 = (TextView)convertView.findViewById(R.id.tv2);
 
+        tv1.setTextColor(Color.rgb(209,212,255));
+        tv2.setTextColor(Color.rgb(255,209,223));
+
         ListView lv = (ListView)parent;
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) { //TODO 리스트뷰 누르면 날짜를 가지고 데일리 화면으로 이동
-                Toast.makeText(context, FORMAT.format(data.get(position).getDate().getDate()), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(context, DailyDiaryActivity.class);
                 i.putExtra("date", FORMAT.format(data.get(position).getDate().getDate()));
                 context.startActivity(i);

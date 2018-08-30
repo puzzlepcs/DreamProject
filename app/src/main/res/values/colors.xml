@@ -11,4 +11,6 @@
     <color name="colorText">#464646</color>
     <color name="colorBar">#e6e6e6</color>
     <color name="colorTransparency">#b3ffffff</color>
+    <color name="colorHahshtag">#fc85ae</color>
+    <color name="purple">#9730fd</color>
 </resources>
