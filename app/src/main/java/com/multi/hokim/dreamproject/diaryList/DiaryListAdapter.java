@@ -37,7 +37,7 @@ public class DiaryListAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.diary, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.layout_diary, null);
         }
 
         return convertView;

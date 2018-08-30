@@ -23,6 +23,11 @@ public class DiaryVO {
         this.date = date;
     }
 
+    public DiaryVO(CalendarDay date, String body) {
+        this.date = date;
+        this.body = body;
+    } //TODO 데이트 바디로만 만드는 생성자 추가
+
     public DiaryVO(int id, CalendarDay date, String body) {
         this.id_ = id;
         this.date = date;

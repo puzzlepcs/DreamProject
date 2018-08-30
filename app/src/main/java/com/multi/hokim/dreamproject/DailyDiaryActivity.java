@@ -4,6 +4,7 @@ package com.multi.hokim.dreamproject;
  *  데일리 화면
  */
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +46,6 @@ public class DailyDiaryActivity extends AppCompatActivity implements HashTagHelp
 
     private TextView date_viewer;
     private EditText mEditTextView;
-    private TextView mAllHashTag;
 
     private Toast mToast;
 
@@ -68,13 +69,14 @@ public class DailyDiaryActivity extends AppCompatActivity implements HashTagHelp
             Log.e(TAG, "Parsing failed");
         }
 
-        date_viewer = (TextView) findViewById(R.id.daily_date_viewer);
-        date_viewer.setText(selectedDate_s);
-        mAllHashTag = (TextView) findViewById(R.id.all_hashtags);
-        mEditTextView = (EditText) findViewById(R.id.edit_text_field);
+        date_viewer = (TextView) findViewById(R.id.date_viewer);
+        date_viewer.setText(MonthlyDiaryActivity.FORMATTER.format(selectedDate.getDate()));
+        mEditTextView = (EditText) findViewById(R.id.body_viewer);
 
-        Button dailySaveBtn = (Button) findViewById(R.id.daily_save_btn);
-        dailySaveBtn.setOnClickListener(this);
+        ImageButton saveBtn = (ImageButton) findViewById(R.id.save_btn);
+        saveBtn.setOnClickListener(this);
+        ImageButton backBtn = (ImageButton) findViewById(R.id.back_btn);
+        backBtn.setOnClickListener(this);
 
         char[] additionalSymbols = new char[]{'_', '$'};
         mEditTextHashTagHelper = HashTagHelper.Creator.create(getResources().getColor(R.color.colorAccent), this, additionalSymbols);
@@ -135,8 +137,16 @@ public class DailyDiaryActivity extends AppCompatActivity implements HashTagHelp
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.daily_save_btn:
+            case R.id.save_btn:
                 new SaveAsync().execute();
+                Intent saveIntent = new Intent();
+                setResult(Activity.RESULT_OK, saveIntent);
+                finish();
+                break;
+            case R.id.back_btn:
+                finish();
+                Intent backIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED, backIntent);
                 break;
         }
     }
@@ -147,26 +157,38 @@ public class DailyDiaryActivity extends AppCompatActivity implements HashTagHelp
 
         @Override
         protected Void doInBackground(Void... voids) {
-            if(diaryVO.getId() == 0) {
+            int diary_id = getDiaryId();
+            if(diary_id == 0) { // 새로 일기를 작성한 경우
                 db.execSQL(
                         DiaryDBCtrct.SQL_INSERT_DFT + "('" + selectedDate_s + "', '" + diaryVO.getBody() + "')");
+                diary_id = getDiaryId();
 
-                int diary_id = getDiaryId();
-                int hash_id = 0;
-                for(String h : diaryVO.getHashtag()) {
-                    hash_id = getHashId(h);
-                    if(hash_id == 0) {
-                        db.execSQL(HashtagDBCtrct.SQL_INSERT_HASH + "('" + h + "')");
-                        hash_id = getHashId(h);
-                    }
+            } else { // 이미 있는 일기를 수정한 경우
+                // 일기의 body를 업데이트
+                db.execSQL(
+                        "UPDATE " + DiaryDBCtrct.TBL_DIARY +
+                                " SET " + DiaryDBCtrct.COL_BODY + "='" +diaryVO.getBody() + "'" +
+                                " WHERE " + DiaryDBCtrct.COL_ID + "=" + diaryVO.getId()
+                );
 
-                    db.execSQL(
-                            TagDiaryRelationsDBCtrct.SQL_INSERT + "(" + diary_id + ", " + hash_id +")");
-                }
-
-            } else {
-
+                db.execSQL(
+                            TagDiaryRelationsDBCtrct.SQL_DELETE + " WHERE " +
+                                    TagDiaryRelationsDBCtrct.COL_DIARYID + "=" + diaryVO.getId()
+                    );
             }
+            // hashtag 관리
+            int hash_id = 0;
+            for(String h : diaryVO.getHashtag()) {
+                hash_id = getHashId(h);
+                if(hash_id == 0) {
+                    db.execSQL(HashtagDBCtrct.SQL_INSERT_HASH + "('" + h + "')");
+                    hash_id = getHashId(h);
+                }
+                Log.e(TAG, "layout_diary id: " + diary_id + ", hash_id: "+ hash_id);
+                db.execSQL(
+                        TagDiaryRelationsDBCtrct.SQL_INSERT + "(" + diary_id + ", " + hash_id +")");
+            }
+
             return null;
         }
 
@@ -220,102 +242,4 @@ public class DailyDiaryActivity extends AppCompatActivity implements HashTagHelp
 
     }
 }
-    // Load the contents of the selected diary
-    // create an instance of DiaryVO if the diary already exists
-
-
-/**
- * // [STEP-1] 다이어리 테이블, 릴레이션 테이블
- // 새로운 다이어리 입력한 경우
- if (diaryVO == null) {
- Log.e(TAG, "diary Not found");
- // DIARY_T에 값 넣어주기
- String diary_q = DiaryDBCtrct.SQL_INSERT + "(" +
- diary_id + ", " +
- "'" + selectedDate_s + "', " +
- "'" + newDiary.getBody() + "'"+
- ")";
- db.execSQL(diary_q);
-
- // HASH_T와 RELATION_T에 값 넣어주기
- for(String h : newDiary.getHashtag()) {
- Cursor cursor = db.rawQuery(
- HashtagDBCtrct.SQL_SELECT + " WHERE " + HashtagDBCtrct.COL_NAME + "='" + h + "'",
- null);
- int hash_id = 0;
- if(cursor == null) {
- // 결과가 없으면 새로운 해시태그 생성해주고 id값 받아오기
- db.execSQL(
- HashtagDBCtrct.SQL_INSERT_HASH + "(" + h + ")",
- null);
- Cursor c = db.rawQuery(HashtagDBCtrct.SQL_SELECT + " WHERE " + HashtagDBCtrct.COL_NAME + "='" + h + "'",
- null);
- while (c.moveToNext()) {
- hash_id = c.getInt(0);
- }
- } else  {
- // 이미 있는 해시태그인 경우 id 값 받기;
- while(cursor.moveToNext()) {
- hash_id = cursor.getInt(0);
- }
- }
-
- db.execSQL(TagDiaryRelationsDBCtrct.SQL_INSERT + "(" + newDiary.getId() + ", " + hash_id + ")");
- }
-
- Log.e(TAG, "insertion completed");
- }
- // 기존의 다이어리를 수정한 경우
- else {
-
- }
-
- private class LoadAsync extends AsyncTask<Void, Void, Void> {
- private SQLiteDatabase db;
-
- @Override
- protected  Void doInBackground(Void... voids) {
- // TODO: load the contents of the diary
- Cursor cursor = db.rawQuery(
- DiaryDBCtrct.SQL_SELECT_BY_DATE + "'" + selectedDate_s + "'",
- null);
-
- int id = 0;
- String body = "";
- String msg = "";
- if(cursor != null) {
- while (cursor.moveToNext()) {
- id  = cursor.getInt(0);
- msg += "[diary_id: " + id + "], ";
- String date = cursor.getString(1);
- msg += "[date: "+ date + "], ";
- body = cursor.getString(2);
- msg += "[body: " + body + "]";
- diaryVO = new DiaryVO();
- diaryVO.setBody(body);
- diaryVO.setId(id);
- diaryVO.setDate(selectedDate);
- }
- } else {
- diaryVO = null;
- }
- Log.e(TAG, msg);
- return null;
- }
-
- protected void onPreExecute() {
- super.onPreExecute();
- db = dbHelper.getReadableDatabase();
- }
-
- protected void onPostExecute(Void aVoid) {
- super.onPostExecute(aVoid);
-
- if(diaryVO != null) {
- mEditTextView.setText(diaryVO.getBody());
- diaryVO.setHashtag(mEditTextHashTagHelper.getAllHashTags());
- }
- }
- }
- */
 

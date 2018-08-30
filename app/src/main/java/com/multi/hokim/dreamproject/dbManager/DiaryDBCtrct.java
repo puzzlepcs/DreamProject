@@ -52,5 +52,6 @@ public class DiaryDBCtrct {
                 COL_BODY + "='" + newBody + "'";
         return q;
     }
+
 }
 

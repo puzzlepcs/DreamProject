@@ -4,72 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MonthlyDiaryActivity">
+    tools:context=".MonthlyDiaryActivity"
+    android:background="@drawable/background02">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/calendarView"
+        <view
+            class="android.support.v7.widget.CardView"
+            id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:mcv_selectionColor="@color/colorHighlight"
-            app:mcv_showOtherDates="none" />
+            android:layout_margin="@dimen/cardview_margin"
+            app:cardBackgroundColor="@color/colorTransparency"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp"
+            app:contentPadding="@dimen/cardview_content_padding">
 
-        <LinearLayout
-            android:id="@+id/diary_preview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="329dp">
-
-            <TextView
-                android:id="@+id/monthly_date_viewer"
-                android:layout_width="match_parent"
-                android:layout_height="47dp"
-                android:layout_margin="@dimen/activity_vertical_margin"
-                android:minHeight="@dimen/single_item_height"
-                android:minWidth="@dimen/single_item_height"
-                android:text=""
-                android:textSize="@dimen/text_size"
-                tools:layout_editor_absoluteX="89dp"
-                tools:layout_editor_absoluteY="338dp" />
-
-            <TextView
-                android:id="@+id/monthly_body_viewer"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_margin="@dimen/activity_vertical_margin"
-                android:hint=""
-                android:minHeight="@dimen/single_item_height"
-                android:minWidth="@dimen/single_item_height"
-                android:textSize="@dimen/text_size"
-                tools:layout_editor_absoluteX="89dp"
-                tools:layout_editor_absoluteY="385dp" />
-
-            <TextView
-                android:id="@+id/monthly_hashtag_viewer"
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:layout_margin="@dimen/activity_vertical_margin"
-                android:minHeight="@dimen/single_item_height"
-                android:minWidth="@dimen/single_item_height"
-                android:text=""
-                android:textSize="@dimen/text_size"
-                tools:layout_editor_absoluteX="89dp"
-                tools:layout_editor_absoluteY="430dp" />
-
-            <Button
-                android:id="@+id/write_btn"
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/calendarView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Write Diary" />
-        </LinearLayout>
+                app:mcv_selectionColor="@color/colorHighlight"
+                app:mcv_showOtherDates="none" />
+
+        </view>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/default_item_margin"
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:id="@+id/diary_prev">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/activity_vertical_margin">
+
+                    <TextView
+                        style="@style/CustomDateView"
+                        android:id="@+id/date_viewer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/date_text_size"
+                        android:layout_weight="5"
+                        android:hint="Date" />
+
+
+                    <ImageButton
+                        android:id="@+id/save_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+
+                        app:srcCompat="@drawable/ic_round_add_24px"
+                        android:backgroundTint="@android:color/transparent"
+                        />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorBar"
+                    android:layout_margin="15dp"/>
+
+                <TextView
+                    android:id="@+id/body_viewer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/single_item_height"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/body_text_size"
+                    android:hint="Body will be shown here"
+                    android:padding="20dp"
+                    android:layout_margin="5dp"/>
+
+            </LinearLayout>
+
+
     </LinearLayout>
 
 

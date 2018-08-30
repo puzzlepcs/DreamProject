@@ -5,41 +5,92 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DailyDiaryActivity">
+    tools:context=".DailyDiaryActivity"
+    android:background="@drawable/background02">
 
-    <TextView
-        android:id="@+id/daily_date_viewer"
+    <LinearLayout
+        android:id="@+id/menubar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/single_item_height"
-        android:gravity="center_horizontal"
-        android:textSize="@dimen/text_size"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:hint="Date will be shown here" />
+        android:layout_margin="@dimen/default_item_margin"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="2dp">
 
-    <EditText
-        android:id="@+id/edit_text_field"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_item_margin"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageButton
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
+                app:srcCompat="@drawable/ic_round_navigate_before_24px" />
+
+            <TextView
+                android:id="@+id/date_viewer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:gravity="center"
+                android:hint="Date"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/header_size" />
+
+
+            <ImageButton
+                android:id="@+id/save_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="@android:color/transparent"
+                app:srcCompat="@drawable/ic_round_create_24px" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="5dp"
+            android:layout_marginBottom="@dimen/default_item_margin"
+            android:background="#efecf9" />
+
+    </LinearLayout>
+
+    <view
+        class="android.support.v7.widget.CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:hint="enter_text_here"
-        android:minHeight="@dimen/single_item_height"
-        android:textSize="@dimen/text_size">
+        android:layout_weight="10"
+        android:layout_margin="@dimen/cardview_margin"
+        app:cardBackgroundColor="@color/colorTransparency"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp"
+        app:contentPadding="@dimen/cardview_content_padding"
+        >
 
-        <requestFocus />
-    </EditText>
+        <EditText
+            android:id="@+id/body_viewer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#5e5e5e"
+            android:textSize="@dimen/body_text_size"
+            android:hint="@string/please_write_diary"
+            android:padding="10dp"
+            android:layout_margin="@dimen/default_item_margin"/>
 
-    <Button
-        android:id="@+id/daily_save_btn"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/single_item_height"
-        android:text="@string/save_diary" />
+    </view>
 
-    <TextView
-        android:id="@+id/all_hashtags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:minHeight="@dimen/single_item_height"
-        android:textSize="@dimen/text_size" />
+    <view
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:visibility="invisible"
+    />
 </LinearLayout>

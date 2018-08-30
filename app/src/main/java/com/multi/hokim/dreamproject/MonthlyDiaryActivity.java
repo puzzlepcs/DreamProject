@@ -4,6 +4,7 @@ package com.multi.hokim.dreamproject;
  *  먼슬리 화면
  */
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,10 +15,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.greenfrvr.hashtagview.HashtagView;
 import com.multi.hokim.dreamproject.calendarDecorators.EventDecorator;
 import com.multi.hokim.dreamproject.calendarDecorators.SaturdayDecorator;
 import com.multi.hokim.dreamproject.calendarDecorators.SundayDecorator;
@@ -39,18 +42,19 @@ import java.util.List;
 public class MonthlyDiaryActivity extends AppCompatActivity implements OnDateSelectedListener, HashTagHelper.OnHashTagClickListener {
     private static final String TAG = MonthlyDiaryActivity.class.getSimpleName();
 
-    private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
+    public static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
     private CalendarDay selectedDay;
 
     private MaterialCalendarView calendarView;
     private LinearLayout diary_preview;
-    private TextView date_viewer, body_viewer, hashtag_viewer;
-    private Button write_daily_btn;
+    private TextView date_viewer, body_viewer;
+    private ImageButton write_daily_btn;
 
     private DBOpenHelper dbHelper;
     private HashTagHelper mTextHashTagHelper;
 
     private Toast mToast;
+    private EventDecorator eventDecorator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,29 +71,49 @@ public class MonthlyDiaryActivity extends AppCompatActivity implements OnDateSel
                 new SundayDecorator(),
                 new SaturdayDecorator());
 
-        diary_preview = (LinearLayout)findViewById(R.id.diary_preview);
-        date_viewer = (TextView)findViewById(R.id.monthly_date_viewer);
-        body_viewer = (TextView)findViewById(R.id.monthly_body_viewer);
-        hashtag_viewer = (TextView)findViewById(R.id.monthly_hashtag_viewer);
-        write_daily_btn = (Button)findViewById(R.id.write_btn);
+        diary_preview = (LinearLayout)findViewById(R.id.diary_prev);
+        date_viewer = (TextView)findViewById(R.id.date_viewer);
+        body_viewer = (TextView)findViewById(R.id.body_viewer);
+
+        // TODO: 다시 돌아왔을때 방금 작성한 일기 내용을 보여주어야 함.
+        // intent에 result값을 주어야 함 이런식으로~
+        // 0: 작성하지 않음
+        // 1: 새로작성
+        // 2: 수정함
+        write_daily_btn = (ImageButton)findViewById(R.id.save_btn);
         write_daily_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MonthlyDiaryActivity.this, DailyDiaryActivity.class);
                 i.putExtra("date", DiaryVO.DATE_FORMAT.format(selectedDay.getDate()));
-                startActivity(i);
+                startActivityForResult(i, 1);
             }
         });
 
         char[] additionalSymbols = new char[] {'_','$'};
         mTextHashTagHelper = HashTagHelper.Creator.create(getResources().getColor(R.color.colorAccent), this, additionalSymbols);
         mTextHashTagHelper.handle(body_viewer);
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         new DecoratorAsync().execute();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                // 저장한 경우
+                new DecoratorAsync().execute();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                // 취소한 경우
+            }
+        }
     }
 
     @Override
@@ -142,6 +166,7 @@ public class MonthlyDiaryActivity extends AppCompatActivity implements OnDateSel
         protected void onPreExecute() {
             super.onPreExecute();
             db = dbHelper.getReadableDatabase();
+
         }
 
         @Override
@@ -151,7 +176,10 @@ public class MonthlyDiaryActivity extends AppCompatActivity implements OnDateSel
             if(isFinishing()) {
                 return;
             }
-            calendarView.addDecorator(new EventDecorator(R.color.colorHighlight, calendarDays));
+
+            calendarView.removeDecorator(eventDecorator);
+            eventDecorator = new EventDecorator(R.color.colorHighlight, calendarDays);
+            calendarView.addDecorator(eventDecorator);
         }
     }
 
@@ -162,7 +190,7 @@ public class MonthlyDiaryActivity extends AppCompatActivity implements OnDateSel
         @Override
         protected DiaryVO doInBackground(CalendarDay... calendarDays) {
             String date_s = DiaryVO.DATE_FORMAT.format(calendarDays[0].getDate());
-            // Get diary contents
+            // Get layout_diary contents
             Cursor cursor = db.rawQuery(
                     DiaryDBCtrct.SQL_SELECT +
                             " WHERE " + DiaryDBCtrct.COL_DATE + " = '" + date_s + "'",
@@ -198,13 +226,8 @@ public class MonthlyDiaryActivity extends AppCompatActivity implements OnDateSel
         @Override
         protected void onPostExecute(DiaryVO diaryVO) {
             super.onPostExecute(diaryVO);
-            String hashtags = "";
-            for(String tag: diaryVO.getHashtag()) {
-                hashtags = hashtags + "#" + tag + " ";
-            }
 
             body_viewer.setText(diaryVO.getBody());
-            hashtag_viewer.setText(hashtags);
         }
     }
 }
