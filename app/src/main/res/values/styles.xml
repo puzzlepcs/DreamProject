@@ -9,6 +9,9 @@
         <!--No Title Bar-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:textViewStyle">@style/CustomTextView</item>
+        <item name="android:editTextStyle">@style/CustomEditTextView</item>
+        <item name="android:buttonStyle">@style/CustomButton</item>
     </style>
 
     <style name="CustomDateView" parent="@android:style/Widget.TextView" >
@@ -41,4 +44,14 @@
     <style name="CustomTextView3" parent="@android:style/Widget.DeviceDefault.TextView">
         <item name="android:fontFamily">@font/nanum3</item>
     </style>
+
+    <style name="CustomEditTextView" parent="@android:style/Widget.EditText">
+        <item name="android:fontFamily">@font/nanum1</item>
+    </style>
+
+    <style name="CustomButton" parent="@android:style/Widget.Button">
+        <item name="android:fontFamily">@font/nanum1</item>
+    </style>
+
+
 </resources>

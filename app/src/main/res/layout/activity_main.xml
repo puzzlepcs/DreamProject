@@ -4,27 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back02"
+    android:background="@drawable/background03"
     tools:context=".MainActivity"
-    tools:layout_editor_absoluteY="81dp">
+    tools:layout_editor_absoluteY="25dp">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:srcCompat="@drawable/cloud" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="22dp"
+        android:layout_marginTop="96dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="꿈다"
+        android:textColor="#ffffff"
+        android:textSize="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toEndOf="@+id/appCompatImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="154dp"
+        android:text="다이어리, 오늘의 꿈을 기록하다."
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="321dp"
-        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_marginBottom="23dp"
         android:onClick="diary"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
 
         <Button
             android:id="@+id/diarybt"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@drawable/notebook"
             android:minHeight="0dp"
@@ -48,10 +85,10 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="12dp"
-        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_marginBottom="28dp"
         android:onClick="chart"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,8 +96,8 @@
 
         <Button
             android:id="@+id/chartbt"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@drawable/chart"
             android:minHeight="0dp"
@@ -84,10 +121,10 @@
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="120dp"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
         android:onClick="setting"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,8 +132,8 @@
 
         <Button
             android:id="@+id/settingbt"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:background="@drawable/settings"
             android:minHeight="0dp"

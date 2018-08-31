@@ -13,8 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.multi.hokim.dreamproject.DailyDiaryActivity;
+import com.multi.hokim.dreamproject.MonthlyDiaryActivity;
 import com.multi.hokim.dreamproject.R;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -72,7 +74,9 @@ public class MyAdapter extends BaseAdapter {
 
         DiaryVO d = data.get(position);
 
-        tv1.setText(FORMAT.format(d.getDate().getDate()));
+
+        String s = MonthlyDiaryActivity.FORMATTER.format(d.getDate().getDate());
+        tv1.setText(s);
         tv2.setText(d.getBody());
 
         return convertView;

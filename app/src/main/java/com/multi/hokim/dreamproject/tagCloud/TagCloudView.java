@@ -342,7 +342,7 @@ public class TagCloudView extends RelativeLayout{
                 //TODO 해시태그 눌렸을 때 리스트뷰를 띄움
                 m.tempDiarys.clear();
                 Cursor cursor = hb.rawQuery(SQL_FINDLIST + "'" + hash + "'"+
-                        " ORDER BY "+DiaryDBCtrct.TBL_DIARY+"."+DiaryDBCtrct.COL_DATE, null);
+                        " ORDER BY "+DiaryDBCtrct.TBL_DIARY+"."+DiaryDBCtrct.COL_DATE+" DESC", null);
 
                 if (cursor != null) {
                     while (cursor.moveToNext()) {
