@@ -1,5 +1,5 @@
 # DreamProject
-2018 Multicampus Android Devleopment project
+2018 Multicampus Android Development project
 
 ## 꿈다
 해시태그 기반 꿈 다이어리 어플
