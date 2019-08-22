@@ -1,8 +1,13 @@
-# DreamProject
-2018 Multicampus Android Development project
-
-## 꿈다
+# 꿈꾸는 다이어리, 꿈다
+2018 Multicampus Android Development project (2018/07/27-2018/08/31)  
 해시태그 기반 꿈 다이어리 어플
 
 * 프로젝트 기간 : 18.08.20-18.08.31
-* 참여자 : 김민희, 김유진, 이민희, 조하얀
+* 참여자 : 김민희, [김유진](https://github.com/puzzlepcs), [이민희](https://github.com/weenybeenymini), 조하얀
+
+## 주요 기능
+* 알람 기능 : 하루에 한번, 잊지않고 기록 할 수 있게 푸쉬 알람 설정 가능.
+* 캘린더 기능 : 캘린더로 기록된 일기들을 열람할 수 있음.
+* 해시태그 기능 : 일기 작성 시 해시태그를 사용하여 기록 가능.
+* 태그클라우드 기능 : 해시태그의 빈도수를 기반으로 워드 클라우드 생성.  
+ 
